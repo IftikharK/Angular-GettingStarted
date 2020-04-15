@@ -6,12 +6,12 @@ import { IProduct } from '../product';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   pageTitle = 'Product List!';
   imageWidth = 50;
   imageMargin = 2;
   showImage = false;
-  listFilter: 'cart';
+  listFilter = 'cart';
 
   products: IProduct[] = [
     {
@@ -66,6 +66,9 @@ export class ProductListComponent {
     },
   ];
 
+  ngOnInit(): void {
+    console.log('In OnInit');
+  }
   toggleImage(): void {
     this.showImage = !this.showImage;
   }
