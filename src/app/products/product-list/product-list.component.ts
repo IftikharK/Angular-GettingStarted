@@ -11,7 +11,9 @@ export class ProductListComponent implements OnInit {
   imageWidth = 50;
   imageMargin = 2;
   showImage = false;
-  _listFilter: string;
+
+  // tslint:disable-next-line:variable-name
+  private _listFilter: string;
 
   get listFilter(): string {
     return this._listFilter;
@@ -84,7 +86,8 @@ export class ProductListComponent implements OnInit {
   performFilter(filterBy: string): IProduct[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.products.filter((products: IProduct) =>
-      products.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+      products.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
+    );
   }
 
   toggleImage(): void {
