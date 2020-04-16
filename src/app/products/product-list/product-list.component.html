@@ -43,10 +43,24 @@
             />
           </td>
           <td>{{ product.productName }}</td>
-          <td>{{ product.productCode | lowercase | convertToSpaces: '-'}}</td>
+          <td>{{ product.productCode | lowercase | convertToSpaces: "-" }}</td>
           <td>{{ product.releaseDate }}</td>
-          <td>{{ product.price | currency: 'EUR' : 'symbol' : '1.2-2'| lowercase}}</td>
-          <td><app-star></app-star></td>
+          <td>
+            {{ product.price | currency: "EUR":"symbol":"1.2-2" | lowercase }}
+          </td>
+          <td>
+            <!--
+              Container component receive event with the specified payload
+              [rating] -> property binding
+              (ratingClicked) -> event binding
+              onRatingClicked($event) -> function have $event. $event passes alone any information associated with generated event.
+            -->
+            <app-star
+              [rating]="product.starRating"
+              (ratingClicked)="onRatingClicked($event)"
+            >
+            </app-star>
+          </td>
         </tr>
       </tbody>
     </table>
