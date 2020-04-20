@@ -12,6 +12,7 @@ import { from } from 'rxjs';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { WelcomeComponent } from './home/welcome/welcome.component';
 import { RouterModule } from '@angular/router';
+import { ProductDetailGuard } from './products/product-detail/product-detail.guard';
 
 @NgModule({
   declarations: [
@@ -28,8 +29,8 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: 'products', component: ProductListComponent }, //navigate to product list
-      { path: 'products/:id', component: ProductDetailComponent }, //
+      { path: 'products', component: ProductListComponent }, // navigate to product list
+      { path: 'products/:id', canActivate: [ProductDetailGuard] , component: ProductDetailComponent }, // protecting route with guards
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' }, // defalt routes -> welcome component
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }, // wild card path incase the requested url doesn't match any path
