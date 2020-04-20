@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../product';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from '../product.service';
 
 @Component({
   templateUrl: './product-detail.component.html',
@@ -9,8 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductDetailComponent implements OnInit {
   pageTitle = 'Product Detail';
   product: IProduct;
+  errorMessage: string;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
     // 2 way to get desire parameter from ActivatedRoute Service:
@@ -20,19 +22,12 @@ export class ProductDetailComponent implements OnInit {
     // read the parameter into a variable
     // paramter provided as a string to the Plus(+) in the start.
     // plus is JS is shortcut to convert a string to a nummeric Id
-    let id = +this.route.snapshot.paramMap.get('id'); // plus(+)
-    this.pageTitle += `:${id}`;
+    const id = +this.route.snapshot.paramMap.get('id');
 
-    this.product = {
-      productId: 1,
-      productName: 'Leaf Rake',
-      productCode: 'GDN-0011',
-      releaseDate: 'March 19, 2019',
-      description: 'Leaf rake with 48-inch wooden handle.',
-      price: 19.95,
-      starRating: 3.2,
-      imageUrl: 'assets/images/leaf_rake.png',
-    };
+    this.productService.getProductById(id).subscribe({
+      next: product => { this.product = product; },
+      error: err => this.errorMessage = err
+    });
   }
 
   onBack(): void {

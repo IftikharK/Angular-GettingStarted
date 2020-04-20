@@ -17,7 +17,7 @@ import { Injectable } from '@angular/core';
 import { IProduct } from './product';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap, map, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,13 @@ export class ProductService {
     );
   }
 
+  getProductById(id: number): Observable<IProduct | undefined> {
+    return this.getProducts().pipe(
+      map((products: IProduct[]) => products.find(p => p.productId === id)),
+      tap(data => console.log('fetched by productId: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
   private handleError(err: HttpErrorResponse) {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console
