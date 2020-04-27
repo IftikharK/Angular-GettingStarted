@@ -23,8 +23,13 @@ import { catchError, tap, map, filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProductService {
+  // this url we can use when want to access data from product.json file
+  // private productUrl = 'api/products/products.json';
 
-  private productUrl = 'api/products/products.json';
+  // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+  // and returns simulated server responses.
+  // Remove it when a real server is ready to receive requests.
+  private productUrl = 'api/products';
 
   constructor(private http: HttpClient) { }
 
