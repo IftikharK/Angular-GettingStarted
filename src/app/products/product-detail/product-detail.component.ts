@@ -24,7 +24,7 @@ export class ProductDetailComponent implements OnInit {
     // plus is JS is shortcut to convert a string to a nummeric Id
     const id = +this.route.snapshot.paramMap.get('id');
 
-    this.productService.getProductById(id).subscribe({
+    this.productService.getProduct(id).subscribe({
       next: product => { this.product = product; },
       error: err => this.errorMessage = err
     });

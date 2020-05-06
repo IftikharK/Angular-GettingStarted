@@ -3,21 +3,24 @@ import { RouterModule } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailGuard } from './product-detail/product-detail.guard';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-
-
-
+import { ProductEditGuard } from './product-edit/product-edit.guard';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 @NgModule({
   declarations: [],
   imports: [
     RouterModule.forChild([
-      { path: 'products', component: ProductListComponent }, // navigate to product list
+      { path: 'products', component: ProductListComponent },
       {
         path: 'products/:id',
-        canActivate: [ProductDetailGuard], // protecting route with guard
-        component: ProductDetailComponent,
+        canActivate: [ProductDetailGuard],
+        component: ProductDetailComponent },
+      {
+        path: 'products/:id/edit',
+        canDeactivate: [ProductEditGuard],
+        component: ProductEditComponent
       }
-    ])
+    ]),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProductRoutingModule { }
+export class ProductRoutingModule {}
